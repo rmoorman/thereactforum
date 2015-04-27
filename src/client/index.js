@@ -1,9 +1,5 @@
 import React from 'react';
 
-class Hello extends React.Component {
-    render () {
-        return <p>hello world</p>;
-    }
-}
+import Home from './home.js';
 
-React.render(<Hello/>, document.querySelector('#app'));
+React.render(<Home/>, document.querySelector('#app'));
