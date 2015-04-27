@@ -1,3 +1,6 @@
+browserify=./node_modules/.bin/browserify
+uglifyjs=./node_modules/.bin/uglifyjs
+
 install: installnpm
 
 installnpm:
@@ -17,15 +20,24 @@ buildstructure:
 	mkdir public/js
 
 buildlibs:
-	./node_modules/.bin/browserify\
-		--require=react\
-		--outfile=public/js/libs.min.js
+	$(browserify) --require=react --outfile=public/js/libs.min.js
 
 buildclient:
-	./node_modules/.bin/browserify\
+	$(browserify)\
 		--exclude=react\
 		--transform=babelify\
-		--outfile=public/js/client.min.js src/client/index.js
+		--outfile=public/js/client.min.js\
+		src/client/index.js
+
+buildproduction: build
+	$(uglifyjs)\
+		--compress\
+		--output=public/js/libs.min.js\
+		-- public/js/libs.min.js
+	$(uglifyjs)\
+		--compress\
+		--output=public/js/client.min.js\
+		-- public/js/client.min.js
 
 clean:
 	rm --force --recursive public/js/*
