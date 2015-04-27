@@ -1,0 +1,11 @@
+## node
+node_modules
+
+## tmp
+.*
+!.gitignore
+!.editorconfig
+
+## generated
+public/js
+public/css
